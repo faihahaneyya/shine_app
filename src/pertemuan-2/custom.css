@@ -1,0 +1,128 @@
+/* Import font bulat & imut dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+  --pink-pastel: #ffebf2;
+  --pink-dark: #ff98b1;
+  --pink-border: #fbcfe8;
+  --cream-bg: #fffbf0;
+  --text-brown: #5d4a41;
+  --white: #ffffff;
+}
+
+/* --- Tambahan Styling Foto Profil --- */
+
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px 0;
+}
+
+.profile-img {
+  width: 110px;               /* Ukuran foto */
+  height: 110px;              /* Ukuran foto */
+  border-radius: 50%;         /* Membuat bulat sempurna */
+  object-fit: cover;          /* Agar foto tidak tertarik/gepeng */
+  border: 4px solid var(--pink-pastel); /* Frame warna pink lembut */
+  box-shadow: 0 4px 10px rgba(255, 152, 177, 0.2); /* Bayangan halus */
+  transition: transform 0.3s ease;
+}
+
+/* Efek sedikit membesar saat kursor di atas foto */
+.profile-img:hover {
+  transform: scale(1.05);
+}
+
+body {
+  background-color: #fefaf6;
+  /* Pola background titik-titik kecil yang estetik */
+  background-image: radial-gradient(var(--pink-border) 0.6px, transparent 0.6px);
+  background-size: 18px 18px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Quicksand', sans-serif;
+  color: var(--text-brown);
+}
+
+/* Pembungkus utama agar kotak tidak terlalu lebar */
+.card {
+  width: 100%;
+  max-width: 400px; /* Ukuran kotak yang proposional */
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* Kotak Biodata (Container.jsx) */
+.container-wrapper {
+  background-color: var(--white);
+  border: 2px solid var(--pink-border);
+  border-radius: 30px; /* Membuat sudut sangat bulat & lembut */
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(255, 152, 177, 0.15);
+  position: relative;
+}
+
+/* Judul "Biodata" paling atas */
+.title-container {
+  color: var(--pink-dark);
+  background-color: var(--pink-pastel);
+  margin: -10px -10px 20px -10px;
+  padding: 12px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Judul Program Framework */
+.title {
+  color: var(--pink-dark);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* Styling Baris Data Diri */
+.user-card {
+  margin-top: 15px;
+}
+
+.user-card p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  border-bottom: 1px dashed #fff0f5; /* Garis bawah tipis antar baris */
+  padding-bottom: 4px;
+}
+
+/* Garis pembatas (hr) */
+hr {
+  border: none;
+  border-top: 2px dashed var(--pink-pastel);
+  margin: 20px 0;
+}
+
+/* Bagian Quote */
+.quote-text {
+  text-align: center;
+  font-weight: 700;
+  color: var(--pink-dark);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #c4b5b5;
+  margin-top: 15px;
+  font-weight: 600;
+}
