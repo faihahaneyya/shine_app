@@ -1,7 +1,7 @@
 // src/pertemuan-2/BioData.jsx
 import React from 'react';
 // Pastikan kamu sudah menaruh file foto di folder assets
-import fotoProfil from '../assets/zhefanya.jpg'; 
+import fotoProfil from '../assets/GoYounjung.jpg'; 
 
 // Parent Component (Komponen Utama)
 export default function BioData() {
