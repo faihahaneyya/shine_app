@@ -1,0 +1,12 @@
+[
+  { "id": 1, "name": "Kalung Titanium Rosegold", "category": "Kalung", "price": 85000, "stock": 24, "sold": 58, "rating": 4.9, "isBestSeller": true, "icon": "💗" },
+  { "id": 2, "name": "Kalung Choker Hitam Aesthetic", "category": "Kalung", "price": 55000, "stock": 30, "sold": 41, "rating": 4.8, "isBestSeller": true, "icon": "💎" },
+  { "id": 3, "name": "Kalung Lintin Bulan Bintang", "category": "Kalung", "price": 95000, "stock": 0, "sold": 15, "rating": 4.7, "isBestSeller": false, "icon": "💍" },
+  { "id": 4, "name": "Gelang Manik Pita", "category": "Gelang", "price": 45000, "stock": 50, "sold": 28, "rating": 4.6, "isBestSeller": false, "icon": "🔑" },
+  { "id": 5, "name": "Gelang Silver Charm", "category": "Gelang", "price": 175000, "stock": 8, "sold": 34, "rating": 4.9, "isBestSeller": false, "icon": "✨" },
+  { "id": 6, "name": "Liontin Kristal", "category": "Liontin", "price": 195000, "stock": 3, "sold": 22, "rating": 5.0, "isBestSeller": true, "icon": "🔮" },
+  { "id": 7, "name": "Set Cincin Minimalis", "category": "Cincin", "price": 120000, "stock": 15, "sold": 19, "rating": 4.8, "isBestSeller": false, "icon": "💫" },
+  { "id": 8, "name": "Gantungan Kunci Rajut", "category": "Gantungan", "price": 35000, "stock": 0, "sold": 45, "rating": 4.5, "isBestSeller": false, "icon": "🎀" },
+  { "id": 9, "name": "Anting Bulan Sabit", "category": "Anting", "price": 65000, "stock": 18, "sold": 27, "rating": 4.8, "isBestSeller": false, "icon": "🌙" },
+  { "id": 10, "name": "Brokat Bunga", "category": "Brokat", "price": 75000, "stock": 5, "sold": 12, "rating": 4.7, "isBestSeller": false, "icon": "🌸" }
+]

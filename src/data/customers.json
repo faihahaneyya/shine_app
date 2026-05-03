@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Siti Sarah",
+    "email": "siti@gmail.com",
+    "phone": "0812-3456-7890",
+    "status": "VIP",
+    "points": 1200,
+    "tier": "Gold",
+    "orders": 14,
+    "active": true,
+    "joinDate": "Jan 2024"
+  },
+  {
+    "id": 2,
+    "name": "Budi Santoso",
+    "email": "budi.s@yahoo.com",
+    "phone": "0813-4567-8901",
+    "status": "Regular",
+    "points": 450,
+    "tier": "Bronze",
+    "orders": 5,
+    "active": true,
+    "joinDate": "Mar 2024"
+  },
+  {
+    "id": 3,
+    "name": "Amelia Putri",
+    "email": "amel@gmail.com",
+    "phone": "0821-5678-9012",
+    "status": "VIP",
+    "points": 2100,
+    "tier": "Gold",
+    "orders": 22,
+    "active": true,
+    "joinDate": "Sep 2023"
+  },
+  {
+    "id": 4,
+    "name": "Rizky Pratama",
+    "email": "rizky@gmail.com",
+    "phone": "0852-6789-0123",
+    "status": "New",
+    "points": 320,
+    "tier": "Bronze",
+    "orders": 3,
+    "active": true,
+    "joinDate": "Apr 2024"
+  },
+  {
+    "id": 5,
+    "name": "Dewi Lestari",
+    "email": "dewi.l@gmail.com",
+    "phone": "0811-7890-1234",
+    "status": "VIP",
+    "points": 5800,
+    "tier": "Diamond",
+    "orders": 47,
+    "active": true,
+    "joinDate": "Feb 2022"
+  },
+  {
+    "id": 6,
+    "name": "Fajar Nugroho",
+    "email": "fajar.n@gmail.com",
+    "phone": "0856-8901-2345",
+    "status": "New",
+    "points": 175,
+    "tier": "Bronze",
+    "orders": 2,
+    "active": false,
+    "joinDate": "May 2024"
+  },
+  {
+    "id": 7,
+    "name": "Nadia Rahma",
+    "email": "nadia.r@gmail.com",
+    "phone": "0819-9012-3456",
+    "status": "VIP",
+    "points": 4200,
+    "tier": "Diamond",
+    "orders": 35,
+    "active": true,
+    "joinDate": "Jun 2023"
+  },
+  {
+    "id": 8,
+    "name": "Hendra Wijaya",
+    "email": "hendra.w@yahoo.com",
+    "phone": "0857-0123-4567",
+    "status": "Regular",
+    "points": 980,
+    "tier": "Silver",
+    "orders": 11,
+    "active": true,
+    "joinDate": "Oct 2023"
+  }
+]

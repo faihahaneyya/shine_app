@@ -1,0 +1,12 @@
+[
+  { "id": "TRX001", "productName": "Rose Gold Bracelet", "quantity": 2, "total": 300000, "date": "2025-04-01", "status": "Completed" },
+  { "id": "TRX002", "productName": "Pearl Necklace", "quantity": 1, "total": 220000, "date": "2025-04-02", "status": "Completed" },
+  { "id": "TRX003", "productName": "Crystal Pendant", "quantity": 3, "total": 585000, "date": "2025-04-05", "status": "Completed" },
+  { "id": "TRX004", "productName": "Rose Gold Bracelet", "quantity": 1, "total": 150000, "date": "2025-04-07", "status": "Pending" },
+  { "id": "TRX005", "productName": "Bohemian Ring", "quantity": 4, "total": 340000, "date": "2025-04-10", "status": "Completed" },
+  { "id": "TRX006", "productName": "Silver Chain Bracelet", "quantity": 1, "total": 175000, "date": "2025-04-12", "status": "Completed" },
+  { "id": "TRX007", "productName": "Pearl Necklace", "quantity": 2, "total": 440000, "date": "2025-04-15", "status": "Cancelled" },
+  { "id": "TRX008", "productName": "Minimalist Ring Set", "quantity": 1, "total": 120000, "date": "2025-04-18", "status": "Completed" },
+  { "id": "TRX009", "productName": "Leather Keychain", "quantity": 5, "total": 225000, "date": "2025-04-20", "status": "Completed" },
+  { "id": "TRX010", "productName": "Crystal Pendant", "quantity": 1, "total": 195000, "date": "2025-04-22", "status": "Pending" }
+]
