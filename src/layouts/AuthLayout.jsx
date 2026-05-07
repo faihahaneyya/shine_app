@@ -1,108 +1,143 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <div className="min-h-screen flex animate-fade-in">
-      {/* Left Side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] relative overflow-hidden">
-        {/* Background Orbs */}
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/20 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/20 rounded-full blur-3xl animate-float-delayed"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse-gentle"></div>
-        
-        <div className="relative z-10 flex flex-col justify-between p-12 h-full animate-slide-in-right">
-          <div>
-            <div className="flex items-center gap-3 mb-8 group cursor-pointer">
-              <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                <span className="text-3xl animate-bounce-subtle">✨</span>
-              </div>
-              <span className="text-white text-xl font-semibold tracking-wide group-hover:tracking-wider transition-all duration-300">na_store.id</span>
+    // Background luar berwarna biru muda pucat
+    <div className="min-h-screen flex items-center justify-center bg-[#AEDEFC] p-4 lg:p-8 font-sans">
+      {/* Container Utama (Card Putih) */}
+      <div className="w-full max-w-6xl min-h-[650px] flex overflow-hidden rounded-[3rem] shadow-2xl bg-white animate-fade-in">
+        {/* SISI KIRI: Branding na_store.id dengan gaya Clover */}
+        <div className="hidden lg:flex lg:w-1/2 bg-[#F875AA] relative overflow-hidden items-center justify-center">
+          {/* Dekorasi Lengkung (Shape ala Clover) */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[#FFDFEB] rounded-bl-[100px] opacity-80"></div>
+          <div className="absolute bottom-0 left-0 w-56 h-56 bg-[#FFDFEB] rounded-tr-[140px] opacity-80"></div>
+
+          {/* Konten Branding */}
+          <div className="relative z-10 p-12 text-center text-white">
+            <div className="mb-6 inline-block bg-white/20 p-4 rounded-3xl backdrop-blur-md animate-bounce-subtle">
+              <span className="text-5xl">✨</span>
             </div>
-            
-            <h1 className="text-white text-4xl font-bold leading-tight mb-4 animate-slide-in-up">
-              Handmade with<br />
-              <span className="text-[#FDEDED] relative inline-block group">
-                Love & Care
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white/50 group-hover:w-full transition-all duration-500"></span>
-              </span>
+
+            <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-tight mb-4">
+              NA_STORE
+              <br />
+              <span className="text-[#FFDFEB]">ACCESSORIE</span>
             </h1>
-            
-            <p className="text-white/80 text-lg leading-relaxed animate-fade-in-delayed">
-              Discover unique handmade accessories<br />
-              that tell your story. Each piece crafted<br />
-              with attention to detail and passion.
+
+            <p className="text-lg font-medium opacity-90 mb-10 tracking-wide">
+              Handmade with Love & Care
             </p>
-          </div>
-          
-          <div className="flex gap-8 animate-slide-in-up-delayed">
-            <div className="text-center group cursor-pointer transition-all duration-300 hover:scale-105">
-              <p className="text-white text-3xl font-bold group-hover:text-[#FDEDED] transition-colors">500+</p>
-              <p className="text-white/70 text-sm group-hover:text-white/90 transition-colors">Happy Customers</p>
-            </div>
-            <div className="text-center group cursor-pointer transition-all duration-300 hover:scale-105">
-              <p className="text-white text-3xl font-bold group-hover:text-[#FDEDED] transition-colors">1K+</p>
-              <p className="text-white/70 text-sm group-hover:text-white/90 transition-colors">Products Sold</p>
-            </div>
-            <div className="text-center group cursor-pointer transition-all duration-300 hover:scale-105">
-              <p className="text-white text-3xl font-bold group-hover:text-[#FDEDED] transition-colors">4.9</p>
-              <p className="text-white/70 text-sm group-hover:text-white/90 transition-colors">Rating ★</p>
+
+            {/* Statistik yang dipertahankan dari kode lama */}
+            <div className="grid grid-cols-3 gap-4 border-t border-white/30 pt-8">
+              <div>
+                <p className="text-2xl font-bold">500+</p>
+                <p className="text-xs uppercase opacity-80">Clients</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold">1K+</p>
+                <p className="text-xs uppercase opacity-80">Sold</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold">4.9</p>
+                <p className="text-xs uppercase opacity-80">Rating</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12 bg-white animate-slide-in-left">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8 lg:hidden">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] bg-clip-text text-transparent">na_store<span className="text-[#F875AA]">.</span>id</h1>
-            <p className="text-gray-500 mt-1">Handmade Accessories</p>
+        {/* SISI KANAN: Tempat Form (Login/Register) */}
+        <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 lg:p-16 bg-white relative">
+          <div className="w-full max-w-md">
+            {/* Logo Mobile (Muncul di layar kecil saja) */}
+            <div className="lg:hidden text-center mb-10">
+              <h1 className="text-[#F875AA] text-3xl font-black italic">
+                NA_STORE.ID
+              </h1>
+              <div className="h-1 w-12 bg-[#AEDEFC] mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            {/* Form dari Outlet (Sign In / Sign Up) */}
+            <div className="animate-slide-up">
+              <Outlet />
+
+              {/* Divider "Sign In with" */}
+              <div className="relative my-10 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-gray-100"></span>
+                </div>
+                <span className="relative bg-white px-4 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                  Sign In with
+                </span>
+              </div>
+
+              {/* Social Buttons (Style Pil/Clover) */}
+              <div className="grid grid-cols-3 gap-4 mb-12">
+                {/* Facebook */}
+                <div className="flex flex-col items-center gap-2 group cursor-pointer">
+                  <button className="w-full h-11 bg-[#3b5998] text-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all group-hover:-translate-y-1">
+                    <span className="font-bold text-lg italic">f</span>
+                  </button>
+                  <span className="text-[10px] font-bold text-gray-400">
+                    Facebook
+                  </span>
+                </div>
+
+                {/* Google */}
+                <div className="flex flex-col items-center gap-2 group cursor-pointer">
+                  <button className="w-full h-11 bg-[#ff3d00] text-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all group-hover:-translate-y-1">
+                    <span className="font-bold text-lg">G</span>
+                  </button>
+                  <span className="text-[10px] font-bold text-gray-400">
+                    Google
+                  </span>
+                </div>
+
+                {/* Twitter */}
+                <div className="flex flex-col items-center gap-2 group cursor-pointer">
+                  <button className="w-full h-11 bg-[#00acee] text-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all group-hover:-translate-y-1">
+                    <svg
+                      width="18"
+                      height="18"
+                      fill="white"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </button>
+                  <span className="text-[10px] font-bold text-gray-400">
+                    twitter
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <Outlet />
+
+          {/* Footer kecil di pojok bawah */}
+          <p className="absolute bottom-8 text-gray-400 text-xs">
+            © 2026 na_store.id - Handmade Accessories
+          </p>
         </div>
       </div>
 
+      {/* Style untuk animasi kustom */}
       <style>{`
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(-30px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(30px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInUp {
+        @keyframes slideUp {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes floatSlow {
-          0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(10px, 10px); }
-        }
-        @keyframes pulseGentle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(1.05); }
-        }
         @keyframes bounceSubtle {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
+          50% { transform: translateY(-10px); }
         }
-        
-        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        .animate-slide-in-right { animation: slideInRight 0.6s ease-out forwards; }
-        .animate-slide-in-left { animation: slideInLeft 0.6s ease-out forwards; }
-        .animate-slide-in-up { animation: slideInUp 0.5s ease-out forwards; opacity: 0; animation-delay: 0.2s; animation-fill-mode: forwards; }
-        .animate-slide-in-up-delayed { animation: slideInUp 0.5s ease-out forwards; opacity: 0; animation-delay: 0.4s; animation-fill-mode: forwards; }
-        .animate-fade-in-delayed { animation: fadeIn 0.5s ease-out forwards; opacity: 0; animation-delay: 0.3s; animation-fill-mode: forwards; }
-        .animate-float-slow { animation: floatSlow 8s ease-in-out infinite; }
-        .animate-float-delayed { animation: floatSlow 10s ease-in-out infinite reverse; }
-        .animate-pulse-gentle { animation: pulseGentle 6s ease-in-out infinite; }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.6s ease-out delay-200ms; }
         .animate-bounce-subtle { animation: bounceSubtle 3s ease-in-out infinite; }
       `}</style>
     </div>
-  )
+  );
 }
