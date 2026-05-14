@@ -7,6 +7,9 @@ const MainLayout = lazy(() => import('./layouts/MainLayout'))
 const AuthLayout = lazy(() => import('./layouts/AuthLayout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Products = lazy(() => import('./pages/Products'))
+// TAMBAHKAN INI:
+const ProductDetail = lazy(() => import('./pages/ProductDetail')) 
+
 const Membership = lazy(() => import('./pages/Membership'))
 const Reports = lazy(() => import('./pages/Reports'))
 const Testimonials = lazy(() => import('./pages/Testimonials'))
@@ -30,6 +33,9 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
+            {/* TAMBAHKAN ROUTE DINAMIS DISINI */}
+            <Route path="/products/:id" element={<ProductDetail />} />
+            
             <Route path="/membership" element={<Membership />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/testimonials" element={<Testimonials />} />
