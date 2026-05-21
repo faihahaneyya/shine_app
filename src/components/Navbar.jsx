@@ -86,45 +86,38 @@ export default function Navbar() {
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-fade-in-up">
                 <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-[#FDEDED] to-[#FFF5E4]">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold">
-                      {initial}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">{displayName}</p>
-                      <p className="text-xs text-[#F875AA]">Admin</p>
-                    </div>
-                  </div>
+                  <p className="text-sm font-semibold text-gray-800 truncate">{user.name || 'Admin User'}</p>
+                  <p className="text-xs text-[#F875AA] mt-0.5 truncate">{user.email || 'admin@na_store.id'}</p>
                 </div>
-                <Link to="/profile" onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#FDEDED] hover:text-[#F875AA] transition-all duration-200 group">
-                  <FiUserCheck className="group-hover:scale-110 transition-transform" /> <span className="text-sm">My Profile</span>
-                </Link>
-                <button onClick={() => { setIsDropdownOpen(false); handleLogout(); }} className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-red-50 transition-all duration-200 group border-t border-gray-100">
-                  <FiLogOut className="text-red-500 group-hover:rotate-180 transition-transform duration-300" /> <span className="text-sm text-red-500">Logout</span>
-                </button>
+                <div className="p-1">
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-600 rounded-lg hover:bg-[#FDEDED] hover:text-[#F875AA] transition-all"
+                  >
+                    <FiUser className="text-base" /> My Profile
+                  </Link>
+                  <Link
+                    to="/komponen"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all"
+                  >
+                    <FiUserCheck className="text-base" /> Tugas Komponen
+                  </Link>
+                </div>
+                <div className="p-1 border-t border-gray-100">
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-red-500 rounded-lg hover:bg-red-50 transition-all"
+                  >
+                    <FiLogOut className="text-base" /> Sign Out
+                  </button>
+                </div>
               </div>
             )}
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeInDown {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-        }
-        .animate-fade-in-down { animation: fadeInDown 0.4s ease-out forwards; }
-        .animate-fade-in-up { animation: fadeInUp 0.3s ease-out forwards; }
-        .animate-pulse { animation: pulse 1.5s ease-in-out infinite; }
-      `}</style>
     </header>
   )
 }

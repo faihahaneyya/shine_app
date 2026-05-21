@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { 
   FiHome, FiPackage, FiGift, FiBarChart2, FiLogOut, 
   FiUserCheck, FiMessageCircle, FiSettings, FiTrendingUp, 
-  FiUsers, FiShoppingCart, FiGrid, FiChevronRight
+  FiUsers, FiShoppingCart, FiGrid, FiChevronRight, FiLayers
 } from 'react-icons/fi'
 
 export default function Sidebar() {
@@ -22,6 +22,7 @@ export default function Sidebar() {
     { path: '/reports', name: 'Reports', icon: <FiBarChart2 />, badge: 'New' },
     { path: '/testimonials', name: 'Testimonials', icon: <FiMessageCircle />, badge: '9' },
     { path: '/profile', name: 'Profile', icon: <FiUserCheck />, badge: null },
+    { path: '/komponen', name: 'Komponen', icon: <FiLayers />, badge: 'Tugas' }, 
   ]
 
   const menuClass = ({ isActive }) =>
@@ -55,8 +56,9 @@ export default function Sidebar() {
                 <span className="font-medium">{item.name}</span>
               </div>
               {item.badge && (
-                <span className={`text-xs px-2 py-0.5 rounded-full animate-bounce-subtle ${
-                  item.badge === 'New' ? 'bg-green-500 text-white' : 'bg-[#F875AA] text-white'
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase animate-bounce-subtle ${
+                  item.badge === 'New' ? 'bg-green-500 text-white' : 
+                  item.badge === 'Tugas' ? 'bg-blue-500 text-white animate-pulse' : 'bg-[#F875AA] text-white'
                 }`}>
                   {item.badge}
                 </span>

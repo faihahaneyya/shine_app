@@ -7,8 +7,8 @@ const MainLayout = lazy(() => import('./layouts/MainLayout'))
 const AuthLayout = lazy(() => import('./layouts/AuthLayout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Products = lazy(() => import('./pages/Products'))
-// TAMBAHKAN INI:
 const ProductDetail = lazy(() => import('./pages/ProductDetail')) 
+const ComponentsPage = lazy(() => import('./pages/ComponentsPage'))
 
 const Membership = lazy(() => import('./pages/Membership'))
 const Reports = lazy(() => import('./pages/Reports'))
@@ -24,17 +24,21 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
+        {/* Rute khusus autentikasi (Login & Register) */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
 
+        {/* Rute yang diproteksi login */}
         <Route element={<ProtectedRoute isAllowed={isLoggedIn} redirectTo="/login" />}>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
-            {/* TAMBAHKAN ROUTE DINAMIS DISINI */}
             <Route path="/products/:id" element={<ProductDetail />} />
+            
+            {/* Rute galeri komponen biar sinkron dengan sidebar */}
+            <Route path="/komponen" element={<ComponentsPage />} /> 
             
             <Route path="/membership" element={<Membership />} />
             <Route path="/reports" element={<Reports />} />
@@ -43,6 +47,7 @@ function App() {
           </Route>
         </Route>
 
+        {/* Rute 404 jika halaman tidak ditemukan */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
