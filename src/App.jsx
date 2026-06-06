@@ -14,6 +14,7 @@ const Membership = lazy(() => import('./pages/Membership'))
 const Reports = lazy(() => import('./pages/Reports'))
 const Testimonials = lazy(() => import('./pages/Testimonials'))
 const Profile = lazy(() => import('./pages/Profile'))
+const Clients = lazy(() => import('./pages/Clients')) // 1. Tambahkan impor lazy untuk halaman Clients di sini
 const Login = lazy(() => import('./pages/auth/Login'))
 const Register = lazy(() => import('./pages/auth/Register'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -44,6 +45,7 @@ function App() {
             <Route path="/reports" element={<Reports />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/clients" element={<Clients />} /> {/* 2. Tambahkan rute path /clients di sini */}
           </Route>
         </Route>
 

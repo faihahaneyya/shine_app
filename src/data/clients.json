@@ -1,0 +1,14 @@
+[
+  { "id": "CL-001", "nama": "Nadia Rahma", "email": "nadia.r@gmail.com", "status": "Deal", "nilai": "Rp 85.000", "update": "Pesanan Kalung Titanium Rosegold telah selesai dikirim dan diterima dalam kondisi baik." },
+  { "id": "CL-002", "nama": "Siti Sarah", "email": "siti@gmail.com", "status": "Negosiasi", "nilai": "Rp 175.000", "update": "Klien meminta kustomisasi tambahan ukuran diameter untuk produk Gelang Silver Charm." },
+  { "id": "CL-003", "nama": "Fajar Nugroho", "email": "fajar.n@gmail.com", "status": "Baru", "nilai": "Rp 35.000", "update": "Menanyakan ketersediaan stok grosir untuk produk Gantungan Kunci Rajut." },
+  { "id": "CL-004", "nama": "Aulia Putri", "email": "aulia.p@gmail.com", "status": "Deal", "nilai": "Rp 120.000", "update": "Pembayaran lunas untuk Cincin Kawin Titanium Motif Polos ukuran 14." },
+  { "id": "CL-005", "nama": "Budi Santoso", "email": "budi.s@gmail.com", "status": "Negosiasi", "nilai": "Rp 250.000", "update": "Menegosiasikan harga khusus pemesanan souvenir pernikahan berupa 50 pcs gantungan kunci." },
+  { "id": "CL-006", "nama": "Citra Lestari", "email": "citra.l@gmail.com", "status": "Baru", "nilai": "Rp 45.000", "update": "Pelanggan baru menanyakan ketersediaan varian warna pink untuk produk Ikat Rambut Velvet." },
+  { "id": "CL-007", "nama": "Dewi Anggraini", "email": "dewi.a@gmail.com", "status": "Deal", "nilai": "Rp 95.000", "update": "Pengiriman Gelang Manik Pastel kustom inisial nama sedang diproses kurir rekanan." },
+  { "id": "CL-008", "nama": "Eko Prasetyo", "email": "eko.p@gmail.com", "status": "Negosiasi", "nilai": "Rp 150.000", "update": "Klien meminta opsi pengiriman kilat (Next Day) untuk hadiah ulang tahun darurat." },
+  { "id": "CL-009", "nama": "Gita Gutawa", "email": "gita.g@gmail.com", "status": "Baru", "nilai": "Rp 60.000", "update": "Mengirimkan pesan lewat DM menanyakan apakah kalung titanium bisa berkarat jika kena air." },
+  { "id": "CL-010", "nama": "Hendra Wijaya", "email": "hendra.w@gmail.com", "status": "Deal", "nilai": "Rp 310.000", "update": "Paket bundling reseller perhiasan anti karat telah berhasil dikonfirmasi tiba oleh pembeli." },
+  { "id": "CL-011", "nama": "Indah Permata", "email": "indah.p@gmail.com", "status": "Negosiasi", "nilai": "Rp 80.000", "update": "Klien masih mempertimbangkan ongkos kirim ke wilayah luar pulau sebelum transfer." },
+  { "id": "CL-012", "nama": "Joko Widodo", "email": "joko.w@gmail.com", "status": "Baru", "nilai": "Rp 55.000", "update": "Meminta katalog lengkap produk aksesoris kustom terbaru bulan Juni melalui WhatsApp Admin." }
+]

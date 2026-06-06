@@ -22,6 +22,7 @@ export default function Sidebar() {
     { path: '/reports', name: 'Reports', icon: <FiBarChart2 />, badge: 'New' },
     { path: '/testimonials', name: 'Testimonials', icon: <FiMessageCircle />, badge: '9' },
     { path: '/profile', name: 'Profile', icon: <FiUserCheck />, badge: null },
+    { path: '/clients', name: 'Clients', icon: <FiUsers />, badge: null }, // Tambah menu baru di sini
     { path: '/komponen', name: 'Komponen', icon: <FiLayers />, badge: 'Tugas' }, 
   ]
 
