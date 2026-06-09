@@ -25,6 +25,7 @@ export default function Login() {
     if (dataForm.username === 'beyie' && dataForm.password === 'beyiepass') {
       // Simulasi login sukses
       setTimeout(() => {
+        // PERBAIKAN: Set item ke localStorage terlebih dahulu secara berurutan
         localStorage.setItem('isLoggedIn', 'true')
         localStorage.setItem('user', JSON.stringify({
           id: 1,
@@ -35,11 +36,16 @@ export default function Login() {
           points: 150,
           joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
         }))
+        
         if (rememberMe) {
           localStorage.setItem('rememberedUser', dataForm.username)
         }
-        navigate('/')
+
+        // PERBAIKAN: Matikan loading sebelum melakukan navigasi untuk mencegah tumpang tindih state
         setLoading(false)
+        
+        // PERBAIKAN: Navigasi dipanggil setelah data dipastikan aman di storage
+        navigate('/')
       }, 500)
     } else {
       // Login gagal

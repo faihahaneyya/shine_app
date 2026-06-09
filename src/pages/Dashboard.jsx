@@ -71,7 +71,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* PERBAIKAN 1: Sekarang Menggunakan Komponen StatCard (Sesuai Materi) */}
+      {/* Menggunakan Komponen StatCard */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {stats.map((stat, idx) => (
           <StatCard
@@ -79,7 +79,6 @@ export default function Dashboard() {
             title={stat.title}
             value={stat.value}
             icon={stat.icon}
-            // Kirim warna gradasi ke custom class StatCard jika komponen mendukungnya
             className="bg-white border border-gray-100 shadow-sm" 
           />
         ))}
@@ -119,7 +118,6 @@ export default function Dashboard() {
       <Modal isOpen={showCalendarModal} onClose={() => setShowCalendarModal(false)} title="Saring Periode Pembukuan">
         <div className="grid grid-cols-3 gap-2">
           {months.map((month) => (
-            /* PERBAIKAN 2: Menggunakan Komponen <Button> Atomik, bukan tag <button> mentah */
             <Button
               key={month}
               variant={selectedMonth === month ? 'primary' : 'secondary'}
