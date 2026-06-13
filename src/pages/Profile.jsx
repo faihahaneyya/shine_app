@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
-import { FiUser, FiMail, FiPhone, FiMapPin, FiCalendar, FiHeart, FiSmile, FiShoppingBag, FiAward, FiStar, FiLogOut } from 'react-icons/fi'
+import { useState, useEffect, useRef } from 'react' // 1. Tambahkan useRef di import
+import { FiUser, FiMail, FiPhone, FiMapPin, FiCalendar, FiHeart, FiSmile, FiShoppingBag, FiAward, FiStar, FiLogOut, FiCopy } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 
-// Menggunakan komponen bawaan lokal yang sudah terbukti ada di folder
 import PageContainer from '../components/PageContainer'
 import Card from '../components/Card'
 import Button from '../components/Button'
@@ -21,6 +20,31 @@ export default function Profile() {
     address: user.address || 'Jl. Handmade No. 123, Creative District',
     joinDate: user.joinDate || 'May 2026',
   })
+
+  
+  const nameInputRef = useRef(null) 
+  const emailTextRef = useRef(null) 
+  const [copied, setCopied] = useState(false)
+
+  // Modifikasi fungsi edit agar otomatis fokus ke input nama setelah render selesai
+  const handleStartEdit = () => {
+    setIsEditing(true)
+    setTimeout(() => {
+      if (nameInputRef.current) {
+        nameInputRef.current.focus() // Fokus otomatis ke input Nama
+        nameInputRef.current.select() // Block teks otomatis agar mudah diganti
+      }
+    }, 50)
+  }
+
+  const handleCopyEmail = () => {
+    if (emailTextRef.current) {
+      navigator.clipboard.writeText(emailTextRef.current.innerText)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+  // =========================================================================
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 400)
@@ -59,25 +83,28 @@ export default function Profile() {
     <PageContainer>
       <div className="max-w-4xl mx-auto space-y-6 p-2 animate-bounce-in">
         
-        {/* Banner Alert Sukses yang Imut */}
         {saveSuccess && (
           <div className="bg-[#FDEDED] text-[#F875AA] px-4 py-3 rounded-2xl flex items-center gap-2 text-xs font-bold border-2 border-dashed border-[#F875AA]/30 shadow-sm justify-center animate-pulse">
             <FiSmile size={16} className="animate-spin" /> Yay! Profil kamu berhasil diperbarui dengan maniss! ✨
           </div>
         )}
 
-        {/* Grid Utama (Kiri: Kartu Profil Imut, Kanan: Form Pastel) */}
+        {/* Notifikasi Email Berhasil Di-copy */}
+        {copied && (
+          <div className="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold z-50 shadow-md">
+            📋 Email berhasil disalin ke clipboard!
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           
-          {/* KOLOM KIRI - KARTU PROFIL IMUT (4 Kolom) */}
+          {/* KOLOM KIRI */}
           <div className="md:col-span-4">
             <div className="bg-white rounded-3xl border-2 border-[#FDEDED] shadow-sm overflow-hidden p-5 text-center relative group">
-              {/* Dekorasi Aksen Love Menggemaskan */}
               <div className="absolute top-3 right-3 text-[#F875AA]/20 group-hover:text-[#F875AA]/50 transition-colors">
                 <FiHeart size={20} fill="currentColor" />
               </div>
               
-              {/* Lingkaran Avatar Super Cute dengan Efek Ring Ganda */}
               <div className="flex justify-center my-4">
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-3xl font-black text-white shadow-md ring-4 ring-[#FDEDED] ring-offset-2 transform group-hover:rotate-12 transition-transform duration-300">
                   {formData.name.charAt(0).toUpperCase()}
@@ -95,7 +122,6 @@ export default function Profile() {
                 🎀 na_store Team 🎀
               </div>
 
-              {/* Tombol Logout Minimalis Bulat */}
               <div className="border-t-2 border-dashed border-[#FDEDED] pt-4 mt-5">
                 <div onClick={handleLogout} className="w-full">
                   <Button type="danger">
@@ -108,10 +134,9 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* KOLOM KANAN - DATA STATISTIK & DATA FORM (8 Kolom) */}
+          {/* KOLOM KANAN */}
           <div className="md:col-span-8 space-y-6">
             
-            {/* 3 Blok Statistik Mini yang Menggemaskan */}
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-[#FFF5F5] p-3 rounded-2xl border border-[#F875AA]/20 shadow-sm text-center">
                 <div className="w-8 h-8 rounded-full bg-white text-[#F875AA] flex items-center justify-center mx-auto mb-1.5 shadow-sm">
@@ -138,10 +163,8 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Kotak Informasi Utama */}
             <div className="bg-white rounded-3xl border-2 border-[#FDEDED] shadow-sm p-6">
               
-              {/* Header Box Form */}
               <div className="flex justify-between items-center mb-6 border-b-2 border-dashed border-[#FDEDED] pb-4">
                 <h3 className="font-black text-gray-800 text-sm tracking-wide uppercase flex items-center gap-1.5">
                   <span className="inline-block animate-bounce text-[#F875AA]">🌸</span> 
@@ -150,7 +173,7 @@ export default function Profile() {
                 
                 {!isEditing ? (
                   <button
-                    onClick={() => setIsEditing(true)}
+                    onClick={handleStartEdit} // Ganti ke fungsi penanganan ref baru kita
                     className="text-xs font-bold text-[#F875AA] bg-[#FFF5F5] hover:bg-[#FDEDED] px-3 py-1.5 rounded-full border border-[#F875AA]/20 transition-all flex items-center gap-1"
                   >
                     ✏️ Edit Profil
@@ -172,7 +195,6 @@ export default function Profile() {
                 )}
               </div>
 
-              {/* Tampilan Fields Input / Data */}
               <div className="space-y-4">
                 {[
                   { id: 'name', label: 'Nama Lengkap', icon: <FiUser size={14} /> },
@@ -201,20 +223,38 @@ export default function Profile() {
                             name={item.id}
                             value={formData[item.id]}
                             onChange={handleChange}
+                            ref={item.id === 'name' ? nameInputRef : null} // Tempelkan ref khusus pada input nama
                             className="w-full px-4 py-2 text-sm border-2 border-[#FDEDED] rounded-2xl bg-[#FFF5F5]/20 focus:outline-none focus:ring-2 focus:ring-[#F875AA]/30 focus:border-[#F875AA] transition-all font-medium text-gray-700"
                           />
                         )
                       ) : (
-                        <div className="flex items-center gap-3 px-4 py-2.5 bg-[#FFF5F5]/30 border border-[#FDEDED] rounded-2xl text-sm text-gray-700 font-bold hover:bg-[#FFF5F5]/60 transition-colors">
-                          <span className="text-[#F875AA]/60">{item.icon}</span>
-                          <span className="break-all">{formData[item.id]}</span>
+                        <div 
+                          className="flex items-center justify-between px-4 py-2.5 bg-[#FFF5F5]/30 border border-[#FDEDED] rounded-2xl text-sm text-gray-700 font-bold hover:bg-[#FFF5F5]/60 transition-colors group/row"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-[#F875AA]/60">{item.icon}</span>
+                            {/* Tempelkan ref pada teks email agar bisa disalin nilainya */}
+                            <span ref={item.id === 'email' ? emailTextRef : null} className="break-all">
+                              {formData[item.id]}
+                            </span>
+                          </div>
+                          
+                          {/* Tombol Copy Khusus untuk Baris Email */}
+                          {item.id === 'email' && (
+                            <button 
+                              onClick={handleCopyEmail}
+                              className="text-[#F875AA] opacity-0 group-hover/row:opacity-100 p-1 hover:bg-[#FDEDED] rounded-lg transition-all"
+                              title="Salin Email"
+                            >
+                              <FiCopy size={12} />
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>
                   </div>
                 ))}
 
-                {/* Member Since Field */}
                 <div className="space-y-1 pt-1">
                   <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block ml-1">
                     Tanggal Bergabung
@@ -232,7 +272,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Animasi Bounce Lucu */}
       <style>{`
         @keyframes bounceIn {
           0% { opacity: 0; transform: scale(0.95); }

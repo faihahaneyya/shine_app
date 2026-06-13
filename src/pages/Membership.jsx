@@ -17,10 +17,39 @@ export default function Membership() {
   const [selectedCustomer, setSelectedCustomer] = useState(null)
   const [showDetail, setShowDetail] = useState(false)
 
+  // STATE BARU: Untuk menghandle loading khusus di dalam modal detail
+  const [isDetailLoading, setIsDetailLoading] = useState(false)
+
+  
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 300)
     return () => clearTimeout(timer)
   }, [])
+
+
+  useEffect(() => {
+    if (!selectedCustomer) return
+    setIsDetailLoading(true)
+
+    const timer = setTimeout(() => {
+      setIsDetailLoading(false)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+
+  }, [selectedCustomer]) // Hanya berjalan saat state selectedCustomer berubah (diklik)
+
+  // =========================================================================
+  // === IMPLEMENTASI KUSTOM 2: useEffect Dinamis Tab Browser Audit Tracker===
+  // =========================================================================
+  useEffect(() => {
+    if (showDetail && selectedCustomer) {
+      document.title = `Checking: ${selectedCustomer.name} 🔍`;
+    } else {
+      document.title = "Customer CRM & Membership | NA Store";
+    }
+  }, [showDetail, selectedCustomer]) // Berjalan ketika modal dibuka/ditutup atau ganti customer
+  // =========================================================================
 
   const tierList = ['all', 'Diamond', 'Gold', 'Silver', 'Bronze']
 
@@ -70,7 +99,7 @@ export default function Membership() {
         </div>
       </div>
 
-      {/* Grid Iterasi CustomerCard yang sudah dibungkus Komponen <Card> */}
+      {/* Grid Iterasi CustomerCard */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {filteredCustomers.map((customer, index) => (
           <CustomerCard 
@@ -88,30 +117,39 @@ export default function Membership() {
       {/* Modal Detail Saat Baris Data Ditekan */}
       <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Profil Detail Member CRM">
         {selectedCustomer && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-              <div className="w-12 h-12 rounded-full bg-[#F875AA] text-white font-bold flex items-center justify-center text-lg">
-                {selectedCustomer.name.charAt(0)}
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-800">{selectedCustomer.name}</h4>
-                <p className="text-xs text-gray-400">{selectedCustomer.email}</p>
-              </div>
+          // JIKA USEEFFECT SEDANG LOADING (TRUE): Tampilkan animasi loading kecil
+          isDetailLoading ? (
+            <div className="py-12 text-center">
+              <div className="w-8 h-8 border-4 border-[#F875AA] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+              <p className="text-xs text-gray-400 animate-pulse">Mengamankan data & sinkronisasi server...</p>
             </div>
-            <div className="space-y-2 text-xs border-y border-gray-100 py-3">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Tingkat Keanggotaan:</span>
-                <BadgeStatus status={selectedCustomer.tier} />
+          ) : (
+            // JIKA USEEFFECT SELESAI LOADING (FALSE): Tampilkan data aslinya
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div className="w-12 h-12 rounded-full bg-[#F875AA] text-white font-bold flex items-center justify-center text-lg">
+                  {selectedCustomer.name.charAt(0)}
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-800">{selectedCustomer.name}</h4>
+                  <p className="text-xs text-gray-400">{selectedCustomer.email}</p>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Total Poin:</span>
-                <span className="font-bold text-[#F875AA]">{selectedCustomer.points.toLocaleString()} Poin</span>
+              <div className="space-y-2 text-xs border-y border-gray-100 py-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Tingkat Keanggotaan:</span>
+                  <BadgeStatus status={selectedCustomer.tier} />
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Total Poin:</span>
+                  <span className="font-bold text-[#F875AA]">{selectedCustomer.points.toLocaleString()} Poin</span>
+                </div>
               </div>
+              <Button variant="primary" onClick={() => setShowDetail(false)}>
+                Tutup Rincian
+              </Button>
             </div>
-            <Button variant="primary" onClick={() => setShowDetail(false)}>
-              Tutup Rincian
-            </Button>
-          </div>
+          )
         )}
       </Modal>
     </PageContainer>
