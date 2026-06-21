@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLoader, FiLogIn, FiShield } from 'react-icons/fi'
+import { userAPI } from '../../services/userAPI'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -10,6 +10,14 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [dataForm, setDataForm] = useState({ username: '', password: '' })
   const [rememberMe, setRememberMe] = useState(false)
+
+  useEffect(() => {
+    const remembered = localStorage.getItem('rememberedUser')
+    if (remembered) {
+      setDataForm(prev => ({ ...prev, username: remembered }))
+      setRememberMe(true)
+    }
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -21,35 +29,33 @@ export default function Login() {
     setLoading(true)
     setError('')
 
-    // Validasi kredensial untuk beyie
-    if (dataForm.username === 'beyie' && dataForm.password === 'beyiepass') {
-      // Simulasi login sukses
-      setTimeout(() => {
-        // PERBAIKAN: Set item ke localStorage terlebih dahulu secara berurutan
-        localStorage.setItem('isLoggedIn', 'true')
-        localStorage.setItem('user', JSON.stringify({
-          id: 1,
-          name: 'Beyie',
-          firstName: 'Beyie',
-          lastName: '',
-          email: 'beyie@nastore.id',
-          points: 150,
-          joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-        }))
-        
-        if (rememberMe) {
-          localStorage.setItem('rememberedUser', dataForm.username)
-        }
+    try {
+      const user = await userAPI.loginUser(dataForm.username, dataForm.password)
+      
+      // Set item ke localStorage secara berurutan
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('user', JSON.stringify({
+        id: user.id,
+        name: user.username,
+        firstName: user.username,
+        lastName: '',
+        email: user.email,
+        phone: user.NoHp,
+        role: user.role,
+        points: 150, // Nilai dummy poin default untuk kecocokan UI
+        joinDate: new Date(user.created_at || new Date()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+      }))
+      
+      if (rememberMe) {
+        localStorage.setItem('rememberedUser', dataForm.username)
+      } else {
+        localStorage.removeItem('rememberedUser')
+      }
 
-        // PERBAIKAN: Matikan loading sebelum melakukan navigasi untuk mencegah tumpang tindih state
-        setLoading(false)
-        
-        // PERBAIKAN: Navigasi dipanggil setelah data dipastikan aman di storage
-        navigate('/')
-      }, 500)
-    } else {
-      // Login gagal
-      setError('Login failed! Username atau password salah. Gunakan "beyie" dan "beyiepass"')
+      setLoading(false)
+      navigate('/')
+    } catch (err) {
+      setError(err.message || 'Login failed! Username atau password salah.')
       setLoading(false)
     }
   }

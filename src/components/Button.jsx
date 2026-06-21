@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Button({ children, onClick, type = 'primary', disabled = false, icon }) {
+export default function Button({ children, onClick, type = 'primary', disabled = false, icon, htmlType = 'button' }) {
   const baseStyles = "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-black transition-all duration-200 transform active:scale-95 shadow-sm uppercase tracking-wider"
   
   // Menambahkan variasi danger, success, dan secondary agar sinkron dengan halaman Profile
@@ -15,7 +15,7 @@ export default function Button({ children, onClick, type = 'primary', disabled =
   const selectVariant = disabled ? variants.disabled : (variants[type] || variants.primary)
 
   return (
-    <button onClick={onClick} disabled={disabled} className={`${baseStyles} ${selectVariant}`}>
+    <button type={htmlType} onClick={onClick} disabled={disabled} className={`${baseStyles} ${selectVariant}`}>
       {icon && <span className="text-sm">{icon}</span>}
       {children}
     </button>

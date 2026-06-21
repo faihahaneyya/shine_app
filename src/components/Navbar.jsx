@@ -12,8 +12,16 @@ export default function Navbar() {
   const dropdownRef = useRef(null)
   const bellRef = useRef(null) // Ref tambahan untuk area deteksi luar lonceng
   
-  const user = JSON.parse(localStorage.getItem('user') || '{}')
-  
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user') || '{}'))
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUser(JSON.parse(localStorage.getItem('user') || '{}'))
+    }
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
+
   const formatName = (name) => {
     if (!name) return 'Admin'
     return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')

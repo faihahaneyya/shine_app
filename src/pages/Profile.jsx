@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react' // 1. Tambahkan useRef di import
 import { FiUser, FiMail, FiPhone, FiMapPin, FiCalendar, FiHeart, FiSmile, FiShoppingBag, FiAward, FiStar, FiLogOut, FiCopy } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import { userAPI } from '../services/userAPI'
 
 import PageContainer from '../components/PageContainer'
 import Card from '../components/Card'
@@ -56,13 +57,31 @@ export default function Profile() {
     setFormData({ ...formData, [name]: value })
   }
 
-  const handleSave = () => {
-    const updatedUser = { ...user, ...formData }
-    localStorage.setItem('user', JSON.stringify(updatedUser))
-    setUser(updatedUser)
-    setIsEditing(false)
-    setSaveSuccess(true)
-    setTimeout(() => setSaveSuccess(false), 3000)
+  const handleSave = async () => {
+    try {
+      const payload = {
+        username: formData.name,
+        email: formData.email,
+        NoHp: formData.phone
+      }
+
+      if (user.id) {
+        await userAPI.updateUser(user.id, payload)
+      }
+
+      const updatedUser = { ...user, ...formData }
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+      setUser(updatedUser)
+      setIsEditing(false)
+      setSaveSuccess(true)
+
+      // Memicu event agar sidebar/navbar diperbarui secara realtime
+      window.dispatchEvent(new Event('storage'))
+
+      setTimeout(() => setSaveSuccess(false), 3000)
+    } catch (err) {
+      alert(err.response?.data?.message || err.message || 'Gagal memperbarui profil!')
+    }
   }
 
   const handleLogout = () => {
@@ -114,8 +133,8 @@ export default function Profile() {
               <h2 className="text-xl font-black text-gray-800 tracking-tight flex items-center justify-center gap-1">
                 {formData.name} ✨
               </h2>
-              <p className="text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-md inline-block mt-1">
-                Administrator
+              <p className="text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-md inline-block mt-1 uppercase tracking-wider">
+                {user.role || 'Staff'}
               </p>
               
               <div className="mt-4 px-4 py-1.5 bg-[#FDEDED] text-[#F875AA] text-xs font-extrabold rounded-full border border-[#F875AA]/20 tracking-wide inline-block">

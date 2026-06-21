@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Loading from './components/Loading'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -15,12 +15,17 @@ const Reports = lazy(() => import('./pages/Reports'))
 const Testimonials = lazy(() => import('./pages/Testimonials'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Clients = lazy(() => import('./pages/Clients')) // 1. Tambahkan impor lazy untuk halaman Clients di sini
+const Users = lazy(() => import('./pages/Users'))
+const CustomerDashboard = lazy(() => import('./pages/CustomerDashboard'))
 const Login = lazy(() => import('./pages/auth/Login'))
 const Register = lazy(() => import('./pages/auth/Register'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
+  const location = useLocation() // Pemicu re-render otomatis di level root saat route berubah
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  const isAdmin = user.role === 'admin'
 
   return (
     <Suspense fallback={<Loading />}>
@@ -33,20 +38,28 @@ function App() {
 
         {/* Rute yang diproteksi login */}
         <Route element={<ProtectedRoute isAllowed={isLoggedIn} redirectTo="/login" />}>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            
-            {/* Rute galeri komponen biar sinkron dengan sidebar */}
-            <Route path="/komponen" element={<ComponentsPage />} /> 
-            
-            <Route path="/membership" element={<Membership />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/clients" element={<Clients />} /> {/* 2. Tambahkan rute path /clients di sini */}
-          </Route>
+          {isAdmin ? (
+            /* Layout Admin & Rute-Rute Admin */
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/komponen" element={<ComponentsPage />} /> 
+              <Route path="/membership" element={<Membership />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          ) : (
+            /* Layout & Dashboard Pelanggan Biasa */
+            <>
+              <Route path="/" element={<CustomerDashboard />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </>
+          )}
         </Route>
 
         {/* Rute 404 jika halaman tidak ditemukan */}

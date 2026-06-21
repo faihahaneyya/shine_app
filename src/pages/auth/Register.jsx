@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FiUser, FiMail, FiLock, FiPhone, FiEye, FiEyeOff, FiLoader, FiUserPlus } from 'react-icons/fi'
+import { userAPI } from '../../services/userAPI'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -16,24 +17,45 @@ export default function Register() {
     setDataForm({ ...dataForm, [name]: value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (dataForm.password !== dataForm.confirmPassword) {
       alert('Passwords do not match!')
       return
     }
     setLoading(true)
-    setTimeout(() => {
+
+    try {
+      const payload = {
+        username: dataForm.name,
+        email: dataForm.email,
+        NoHp: dataForm.phone,
+        password: dataForm.password,
+        role: 'user'
+      }
+
+      const createdUser = await userAPI.registerUser(payload)
+
+      // Auto login setelah berhasil mendaftar
       localStorage.setItem('isLoggedIn', 'true')
       localStorage.setItem('user', JSON.stringify({
-        name: dataForm.name,
-        email: dataForm.email,
-        phone: dataForm.phone,
-        points: 100,
+        id: createdUser.id,
+        name: createdUser.username,
+        firstName: createdUser.username,
+        lastName: '',
+        email: createdUser.email,
+        phone: createdUser.NoHp,
+        role: createdUser.role,
+        points: 100, // Poin awal default untuk kecocokan UI
+        joinDate: new Date(createdUser.created_at || new Date()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
       }))
-      navigate('/')
+
       setLoading(false)
-    }, 500)
+      navigate('/')
+    } catch (err) {
+      alert(err.response?.data?.message || err.message || 'Gagal mendaftar!')
+      setLoading(false)
+    }
   }
 
   return (
@@ -52,7 +74,7 @@ export default function Register() {
         {/* Full Name Field */}
         <div className="group">
           <label className="block text-gray-700 text-sm font-medium mb-2 group-focus-within:text-[#F875AA] transition-colors">
-            Full Name
+            Username
           </label>
           <div className="relative">
             <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#F875AA] transition-colors" />
@@ -61,7 +83,7 @@ export default function Register() {
               name="name" 
               value={dataForm.name} 
               onChange={handleChange} 
-              placeholder="Your full name" 
+              placeholder="Your Username" 
               className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F875AA] focus:border-transparent bg-gray-50 transition-all duration-300 focus:bg-white" 
               required 
             />

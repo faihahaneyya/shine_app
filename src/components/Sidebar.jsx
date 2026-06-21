@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { 
   FiHome, FiPackage, FiGift, FiBarChart2, FiLogOut, 
@@ -7,7 +8,15 @@ import {
 
 export default function Sidebar() {
   const navigate = useNavigate()
-  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user') || '{}'))
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUser(JSON.parse(localStorage.getItem('user') || '{}'))
+    }
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn')
@@ -23,8 +32,13 @@ export default function Sidebar() {
     { path: '/testimonials', name: 'Testimonials', icon: <FiMessageCircle />, badge: '9' },
     { path: '/profile', name: 'Profile', icon: <FiUserCheck />, badge: null },
     { path: '/clients', name: 'Clients', icon: <FiUsers />, badge: null }, // Tambah menu baru di sini
-    { path: '/komponen', name: 'Komponen', icon: <FiLayers />, badge: 'Tugas' }, 
   ]
+
+  if (user.role === 'admin') {
+    menuItems.push({ path: '/users', name: 'Users', icon: <FiUsers />, badge: 'Realtime' })
+  }
+
+  menuItems.push({ path: '/komponen', name: 'Komponen', icon: <FiLayers />, badge: 'Tugas' })
 
   const menuClass = ({ isActive }) =>
     `flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all duration-300 ${
@@ -118,7 +132,7 @@ export default function Sidebar() {
           </div>
           <div className="flex-1">
             <p className="font-semibold text-gray-800">{user.name || 'Admin User'}</p>
-            <p className="text-xs text-[#F875AA]">Administrator</p>
+            <p className="text-xs text-[#F875AA] uppercase tracking-wider font-bold">{user.role || 'Staff'}</p>
           </div>
           <FiSettings className="text-gray-400 hover:text-[#F875AA] cursor-pointer transition-all duration-200 hover:rotate-90" />
         </div>
