@@ -6,6 +6,7 @@ import { userAPI } from '../../services/userAPI'
 export default function Register() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [dataForm, setDataForm] = useState({
@@ -34,24 +35,14 @@ export default function Register() {
         role: 'user'
       }
 
-      const createdUser = await userAPI.registerUser(payload)
+      await userAPI.registerUser(payload)
 
-      // Auto login setelah berhasil mendaftar
-      localStorage.setItem('isLoggedIn', 'true')
-      localStorage.setItem('user', JSON.stringify({
-        id: createdUser.id,
-        name: createdUser.username,
-        firstName: createdUser.username,
-        lastName: '',
-        email: createdUser.email,
-        phone: createdUser.NoHp,
-        role: createdUser.role,
-        points: 100, // Poin awal default untuk kecocokan UI
-        joinDate: new Date(createdUser.created_at || new Date()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-      }))
-
+      // Tampilkan pesan sukses lalu arahkan ke halaman login
       setLoading(false)
-      navigate('/')
+      setSuccess(true)
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000)
     } catch (err) {
       alert(err.response?.data?.message || err.message || 'Gagal mendaftar!')
       setLoading(false)
@@ -69,6 +60,15 @@ export default function Register() {
         </h2>
         <p className="text-gray-500 mt-2">Join our handmade community</p>
       </div>
+
+      {/* Pesan Sukses Registrasi */}
+      {success && (
+        <div className="mb-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center animate-fade-in-up">
+          <div className="text-2xl mb-1">🎉</div>
+          <p className="text-emerald-700 font-bold text-sm">Akun berhasil dibuat!</p>
+          <p className="text-emerald-600 text-xs mt-0.5">Mengalihkan ke halaman login...</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Full Name Field */}
