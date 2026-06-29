@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { FiSearch, FiBell, FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiGrid, FiSun, FiShoppingBag, FiInfo, FiCheckCircle } from 'react-icons/fi'
+import { FiSearch, FiBell, FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiGrid, FiSun, FiMoon, FiShoppingBag, FiInfo, FiCheckCircle } from 'react-icons/fi'
 import { Link, useNavigate } from 'react-router-dom'
 // Import resmi komponen Popover Shadcn
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -21,6 +21,22 @@ export default function Navbar() {
     window.addEventListener('storage', handleStorageChange)
     return () => window.removeEventListener('storage', handleStorageChange)
   }, [])
+
+  // Theme toggle state
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
 
   const formatName = (name) => {
     if (!name) return 'Admin'
@@ -101,8 +117,16 @@ export default function Navbar() {
         {/* Right Side */}
         <div className="flex items-center gap-4">
           {/* Theme Toggle */}
-          <button className="rounded-full p-2 hover:bg-gray-100 transition-all duration-300 hover:rotate-12">
-            <FiSun className="h-5 w-5 text-gray-500 hover:text-[#F875AA] transition-colors" />
+          <button 
+            onClick={toggleTheme}
+            className="rounded-full p-2 hover:bg-gray-100 transition-all duration-300 hover:rotate-12 dark:hover:bg-gray-700"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? (
+              <FiMoon className="h-5 w-5 text-gray-500 hover:text-[#F875AA] transition-colors" />
+            ) : (
+              <FiSun className="h-5 w-5 text-gray-400 hover:text-[#F875AA] transition-colors" />
+            )}
           </button>
 
           {/* Notification Lonceng dengan Popover Shadcn */}

@@ -53,7 +53,13 @@ export default function Login() {
       }
 
       setLoading(false)
-      navigate('/')
+      // Redirect sesuai role: admin → /dashboard, user biasa → /customer
+      const loggedUser = JSON.parse(localStorage.getItem('user') || '{}')
+      if (loggedUser.role === 'admin') {
+        navigate('/dashboard')
+      } else {
+        navigate('/customer')
+      }
     } catch (err) {
       setError(err.message || 'Login failed! Username atau password salah.')
       setLoading(false)
